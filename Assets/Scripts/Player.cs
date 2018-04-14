@@ -12,6 +12,8 @@ public class Player : MovingObject {
 	private int maxCoins;
 	private int maxHealth;
 
+    // TODO use OnDisable for maintaining token/coin scores across levels
+
 	// Use this for initialization
 	void Start () {
 		maxCoins = GameManager.instance.maxCoins;
@@ -70,11 +72,7 @@ public class Player : MovingObject {
 
 		BasicEnemy enemy = other.gameObject.GetComponent<BasicEnemy>();
 		if (enemy != null) {
-			Vector3 away = gameObject.transform.position - enemy.transform.position;
-			AttemptMove<Component>((int) away.x, (int) away.y);
 			changeQty("health", enemy.DamageDealt());
-
-			return;
 		}
 
 		// TODO create a base AbstractEnemy that inherits off the AbstractAutomaton class so that we can check against that 

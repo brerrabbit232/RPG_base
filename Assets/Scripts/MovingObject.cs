@@ -27,17 +27,21 @@ public abstract class MovingObject : MonoBehaviour {
 		Vector2 end = start + new Vector2(xDir, yDir);
 
 		// I'm not sure why these were here originally. Taking them out stopped the enemy from indefinitely damaging me.
-		// boxCollider.enabled = false;
+		boxCollider.enabled = false;
 		hit = Physics2D.Linecast(start, end, blockingLayer);
-		// boxCollider.enabled = true;
+        boxCollider.enabled = true;
 
-		if (hit.transform == null) {
-			if (smoothMovementEnumerator != null) {
-				StopCoroutine(smoothMovementEnumerator);
-			}
-			smoothMovementEnumerator = SmoothMovement(end);
-			StartCoroutine(smoothMovementEnumerator);
-		}
+        if (hit.transform == null)
+        {
+            if (smoothMovementEnumerator != null)
+            {
+                StopCoroutine(smoothMovementEnumerator);
+            }
+            smoothMovementEnumerator = SmoothMovement(end);
+            StartCoroutine(smoothMovementEnumerator);
+        }
+        else
+            Debug.Log(hit.rigidbody.gameObject.name);
 		return false;
 	}
 
